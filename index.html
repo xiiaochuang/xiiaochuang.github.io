@@ -1,0 +1,102 @@
+<!-- 文件名：index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        nav {
+            background: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .section {
+            margin: 20px 0;
+        }
+        .project {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav>
+            <a href="#about">关于我</a>
+            <a href="#skills">技能</a>
+            <a href="#projects">项目</a>
+            <a href="#contact">联系</a>
+        </nav>
+
+        <!-- 关于我 -->
+        <div id="about" class="section">
+            <h1>张三</h1>
+            <p>一名热爱编程的开发者，专注于前端开发和开源技术。</p>
+            <img src="avatar.jpg" alt="我的头像" width="200" style="border-radius:50%;">
+        </div>
+
+        <!-- 技能 -->
+        <div id="skills" class="section">
+            <h2>技能</h2>
+            <ul>
+                <li>HTML/CSS/JavaScript</li>
+                <li>React/Vue.js</li>
+                <li>Git/GitHub</li>
+            </ul>
+        </div>
+
+        <!-- 项目 -->
+        <div id="projects" class="section">
+            <h2>项目</h2>
+            <div class="project">
+                <h3>项目名称 1</h3>
+                <p>项目描述：这是一个基于 React 的待办事项应用。</p>
+                <a href="https://github.com/yourname/todo-app" target="_blank">GitHub 仓库</a>
+            </div>
+        </div>
+
+        <!-- 联系 -->
+        <div id="contact" class="section">
+            <h2>联系</h2>
+            <p>Email: zhangsan@example.com</p>
+            <p>GitHub: <a href="https://github.com/yourname" target="_blank">github.com/yourname</a></p>
+        </div>
+    </div>
+
+    <!-- 平滑滚动 -->
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
