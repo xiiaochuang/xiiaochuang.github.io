@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[你的名字] - 个人主页</title>
+    <meta name="description" content="[一句话描述你自己，例如：软件工程师 | 全栈开发者 | AI爱好者]">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- 全局样式和变量 --- */
+        :root {
+            --bg-color: #121212;
+            --primary-color: #1E1E1E;
+            --text-color: #E0E0E0;
+            --accent-color: #03a9f4; /* 亮蓝色，科技感 */
+            --secondary-text-color: #B0B0B0;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- 容器和布局 --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- 导航栏 --- */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: background-color 0.3s;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* --- Hero 区域 --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero-content h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--secondary-text-color);
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: var(--secondary-text-color);
+            font-size: 2rem;
+            margin: 0 1rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* --- 通用标题样式 --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 0.5rem auto 0;
+        }
+
+        /* --- 关于我 --- */
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--secondary-text-color);
+        }
+
+        /* --- 技能 --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+        
+        .skill-card li {
+            color: var(--secondary-text-color);
+        }
+
+        /* --- 项目经验 --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--secondary-text-color);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-tags {
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags .tag {
+            display: inline-block;
+            background-color: #333;
+            color: var(--accent-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .project-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .project-links i {
+            margin-right: 0.5rem;
+        }
+
+        /* --- 联系我 --- */
+        #contact {
+            text-align: center;
+        }
+        
+        #contact p {
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: var(--secondary-text-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0288d1; /* A slightly darker blue */
+            transform: scale(1.05);
+        }
+
+        /* --- 页脚 --- */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            background-color: var(--primary-color);
+        }
+        
+        .footer p {
+            color: var(--secondary-text-color);
+        }
+
+        /* --- 响应式设计 --- */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px; /* 导航栏高度 */
+                left: 0;
+                background-color: var(--primary-color);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+            
+            #hero {
+                height: auto;
+                padding: 10rem 1rem 5rem 1rem;
+            }
+            
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">[你的名字]</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#skills">技能栈</a></li>
+                <li><a href="#projects">项目经验</a></li>
+                <li><a href="#contact">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>你好，我是 <span id="name-span">[你的名字]</span></h1>
+            <p>[你的职位或一句话描述，例如：软件工程师 | 全栈开发者 | 数据科学家]</p>
+            <div class="social-links">
+                <a href="[你的 GitHub 链接]" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="[你的 LinkedIn 链接]" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:[你的邮箱地址]" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="about" class="container">
+            <h2 class="section-title">关于我</h2>
+            <p>
+                我是一名对技术充满热情的开发者，专注于 [你的领域，例如：Web 开发、移动应用开发或数据分析]。我热衷于使用简洁高效的代码解决复杂问题，并享受将想法变为现实的过程。目前，我正在积极寻找新的机会，希望能在充满挑战的环境中不断成长。
+            </p>
+        </section>
+
+        <section id="skills" class="container">
+            <h2 class="section-title">技能栈</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>编程语言 & 前端</h3>
+                    <ul>
+                        <li>JavaScript (ES6+)</li>
+                        <li>HTML5 & CSS3</li>
+                        <li>Python</li>
+                        <li>TypeScript</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>框架 & 库</h3>
+                    <ul>
+                        <li>React / Vue.js</li>
+                        <li>Node.js / Express</li>
+                        <li>Django / Flask</li>
+                        <li>Next.js</li>
+                        <li>Tailwind CSS</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>工具 & 平台</h3>
+                    <ul>
+                        <li>Git & GitHub</li>
+                        <li>Docker</li>
+                        <li>Webpack / Vite</li>
+                        <li>AWS / Vercel</li>
+                        <li>Figma</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2 class="section-title">项目经验</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/800x400.png?text=Project+Screenshot" alt="项目1截图">
+                    <div class="project-content">
+                        <h3>[项目一名称]</h3>
+                        <p class="project-description">
+                            [这里是一段关于你项目的简洁描述。说明这个项目解决了什么问题，你扮演了什么角色，以及它的主要功能。]
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="[项目 GitHub 链接]" target="_blank"><i class="fab fa-github"></i> 代码仓库</a>
+                            <a href="[项目线上演示链接]" target="_blank"><i class="fas fa-external-link-alt"></i> 线上演示</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/800x400.png?text=Project+Screenshot" alt="项目2截图">
+                    <div class="project-content">
+                        <h3>[项目二名称]</h3>
+                        <p class="project-description">
+                            [这里是一段关于你项目的简洁描述。说明这个项目解决了什么问题，你扮演了什么角色，以及它的主要功能。]
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Vite</span>
+                            <span class="tag">Firebase</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="[项目 GitHub 链接]" target="_blank"><i class="fab fa-github"></i> 代码仓库</a>
+                            <a href="[项目线上演示链接]" target="_blank"><i class="fas fa-external-link-alt"></i> 线上演示</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/800x400.png?text=Project+Screenshot" alt="项目3截图">
+                    <div class="project-content">
+                        <h3>[项目三名称]</h3>
+                        <p class="project-description">
+                            [这里是一段关于你项目的简洁描述。说明这个项目解决了什么问题，你扮演了什么角色，以及它的主要功能。]
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">REST API</span>
+                            <span class="tag">Heroku</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="[项目 GitHub 链接]" target="_blank"><i class="fab fa-github"></i> 代码仓库</a>
+                            <a href="[项目线上演示链接]" target="_blank"><i class="fas fa-external-link-alt"></i> 线上演示</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="container">
+            <h2 class="section-title">联系我</h2>
+            <p>
+                我目前正在寻找新的工作机会，如果您觉得我的背景和技能符合您的团队需求，或者有任何问题，欢迎随时与我联系。
+            </p>
+            <a href="mailto:[你的邮箱地址]" class="btn">发送邮件</a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> [你的名字]. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // 动态更新年份
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // 点击链接后关闭菜单
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
